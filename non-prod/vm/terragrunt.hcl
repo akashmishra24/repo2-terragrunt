@@ -3,13 +3,13 @@ include "root" {
 }
 
 terraform {
-    source = "github.com/akashmishra24/repo1-tfmodules"
+    source = "git::git@github.com:akashmishra24/repo1-tfmodules.git//vm_module?ref=n/a"
 }
 
-data "azurerm_log_analytics_workspace" "example" {
-  name                = "vmlogs"
-  resource_group_name = "Hub-RG"
-}
+# data "azurerm_log_analytics_workspace" "example" {
+#   name                = "vmlogs"
+#   resource_group_name = "Hub-RG"
+# }
 
 inputs = {
   resource_group_name  = "Hub-RG"
@@ -57,13 +57,13 @@ inputs = {
 
   # (Optional) To enable Azure Monitoring and install log analytics agents
   # (Optional) Specify `storage_account_name` to save monitoring logs to storage.   
-  log_analytics_workspace_id = data.azurerm_log_analytics_workspace.example.id
+  # log_analytics_workspace_id = data.azurerm_log_analytics_workspace.example.id
 
   # Deploy log analytics agents to virtual machine. 
   # Log analytics workspace customer id and primary shared key required.
   deploy_log_analytics_agent                 = false
-  log_analytics_customer_id                  = data.azurerm_log_analytics_workspace.example.workspace_id
-  log_analytics_workspace_primary_shared_key = data.azurerm_log_analytics_workspace.example.primary_shared_key
+  # log_analytics_customer_id                  = data.azurerm_log_analytics_workspace.example.workspace_id
+  # log_analytics_workspace_primary_shared_key = data.azurerm_log_analytics_workspace.example.primary_shared_key
 
   # Adding additional TAG's to your Azure resources
   tags = {
@@ -73,5 +73,4 @@ inputs = {
     BusinessUnit = "CORP"
     ServiceClass = "Gold"
   }
-}
 }
