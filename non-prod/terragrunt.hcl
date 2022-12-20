@@ -26,7 +26,7 @@ remote_state {
     backend = "azurerm"
     config = {
         subscription_id = "${local.subscription_id}"
-        key = "${path_relative_to_include()}terraform_new.tfstate"
+        key = "${path_relative_to_include()}terraform_new1.tfstate"
         resource_group_name = "Terraform-State-File"
         storage_account_name = "mytfstatefile"
         container_name = "tfstate"
