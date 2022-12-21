@@ -24,3 +24,5 @@ jobs:
     - name: Sample commands
       run: |
         echo Hello
+        mkdir test
+        ls
