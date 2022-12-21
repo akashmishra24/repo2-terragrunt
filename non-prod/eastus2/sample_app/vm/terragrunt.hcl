@@ -3,7 +3,7 @@ include "root" {
 }
 
 terraform {
-    source = "git::git@github.com:akashmishra24/repo1-tfmodules.git//azurerm_vm"
+    source = "git::https://github.com/akashmishra24/repo1-tfmodules.git//azurerm_vm"
 }
 
 
