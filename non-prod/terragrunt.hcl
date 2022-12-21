@@ -3,8 +3,8 @@ locals {
 }
 
 # Generate Azure providers
-generate "versions" {
-  path      = "versions_override.tf"
+generate "providers" {
+  path      = "providers_override.tf"
   if_exists = "overwrite_terragrunt"
   contents  = <<EOF
     terraform {

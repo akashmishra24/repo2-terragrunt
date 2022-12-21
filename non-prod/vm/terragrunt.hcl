@@ -3,33 +3,21 @@ include "root" {
 }
 
 terraform {
-    source = "git::git@github.com:akashmishra24/repo1-tfmodules.git//vm_module?ref=n/a"
+    source = "git::git@github.com:akashmishra24/repo1-tfmodules.git//azurerm_vm"
 }
 
-# data "azurerm_log_analytics_workspace" "example" {
-#   name                = "vmlogs"
-#   resource_group_name = "Hub-RG"
-# }
 
 inputs = {
   resource_group_name  = "Hub-RG"
   location             = "East US"
   virtual_network_name = "hub-vnet"
   subnet_name          = "lb-subnet"
-  virtual_machine_name = "vm-windows"
-
-  # This module support multiple Pre-Defined Linux and Windows Distributions.
-  # Check the README.md file for more pre-defined images for Ubuntu, Centos, RedHat.
-  # Please make sure to use gen2 images supported VM sizes if you use gen2 distributions
-  # Specify `disable_password_authentication = false` to create random admin password
-  # Specify a valid password with `admin_password` argument to use your own password 
-  # To generate SSH key pair, specify `generate_admin_ssh_key = true`
-  # To use existing key pair, specify `admin_ssh_key_data` to a valid SSH public key path.  
-  os_flavor                 = "windows"
-  windows_distribution_name = "windows2019dc"
-  # linux_distribution_name = "ubuntu2004"
+  virtual_machine_name = "vm-linux"
+  os_flavor                 = "linux"
+# windows_distribution_name = "windows2019dc"
+  linux_distribution_name = "ubuntu2004"
   virtual_machine_size = "Standard_B2s"
-  # generate_admin_ssh_key  = true
+  generate_admin_ssh_key  = true
   instances_count = 1
 
   # Proxymity placement group, Availability Set and adding Public IP to VM's are optional.
