@@ -23,7 +23,7 @@ jobs:
         working-directory: "./non-prod/eastus2/sample_app/vm"
 
     steps:
-    # Checkout the repository to the GitHub Actions runner
+    # Checkout the repository to the GitHub Actions runner.
     - name: Checkout
       uses: actions/checkout@v2
 
