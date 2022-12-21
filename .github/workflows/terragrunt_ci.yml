@@ -7,22 +7,8 @@ on:
   pull_request:
 
 jobs:
-  build:
-    runs-on: linuxvm-runner
-
-    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
-    defaults:
-      run:
-        shell: bash
-   #     working-directory: "./non-prod/eastus2/sample_app/vm"
-
+  init:
+    runs-on: self-hosted
     steps:
-    # Checkout the repository to the GitHub Actions runner.
-    - name: Checkout
-      uses: actions/checkout@v2
-      
-    - name: Sample commands
-      run: |
-        echo Hello
-        mkdir test
-        ls
+      - run: echo "Hello world"
+      - run: echo $HOSTNAME
