@@ -9,7 +9,7 @@ terraform {
 
 inputs = {
   resource_group_name  = "Hub-RG"
-  location             = "East US"
+  location             = "East US 2"
   virtual_network_name = "hub-vnet"
   subnet_name          = "lb-subnet"
   virtual_machine_name = "vm-linux"
