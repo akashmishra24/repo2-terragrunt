@@ -26,13 +26,6 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v2
-      
-    - name: Setup TFLint
-      uses: terraform-linters/setup-tflint@v3.0.0
-      with:
-        tflint_version: latest
-      # GitHub token - used when getting the latest version of tflint
-      # github_token: # optional, default is ${{ github.token }}
 
     # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terragrunt Init
