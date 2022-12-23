@@ -9,15 +9,15 @@ terraform {
 
 
 inputs = {
-  resource_group_name  = "Hub-RG"
+  resource_group_name  = "Spoke-RG"
   location             = "East US 2"
-  virtual_network_name = "hub-vnet"
-  subnet_name          = "lb-subnet"
+  virtual_network_name = "vnet"
+  subnet_name          = "default"
   virtual_machine_name = "vm-linux"
   os_flavor                 = "linux"
 # windows_distribution_name = "windows2019dc"
   linux_distribution_name = "ubuntu2004"
-  virtual_machine_size = "Standard_B2s"
+  virtual_machine_size = "Standard_D2as_v4"
   generate_admin_ssh_key  = true
   instances_count = 1
 
