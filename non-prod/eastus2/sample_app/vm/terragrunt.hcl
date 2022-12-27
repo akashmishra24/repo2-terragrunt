@@ -59,7 +59,7 @@ inputs = {
 
   # (Optional) To enable Azure Monitoring and install log analytics agents
   # (Optional) Specify `storage_account_name` to save monitoring logs to storage.   
-  log_analytics_workspace_id = data.azurerm_log_analytics_workspace.example.id
+  # log_analytics_workspace_id = data.azurerm_log_analytics_workspace.example.id
 
   # Deploy log analytics agents to virtual machine. 
   # Log analytics workspace customer id and primary shared key required.
