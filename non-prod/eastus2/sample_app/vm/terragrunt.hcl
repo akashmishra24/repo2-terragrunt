@@ -64,8 +64,8 @@ inputs = {
   # Deploy log analytics agents to virtual machine. 
   # Log analytics workspace customer id and primary shared key required.
   deploy_log_analytics_agent                 = false
-  log_analytics_customer_id                  = data.azurerm_log_analytics_workspace.example.workspace_id
-  log_analytics_workspace_primary_shared_key = data.azurerm_log_analytics_workspace.example.primary_shared_key
+ # log_analytics_customer_id                  = data.azurerm_log_analytics_workspace.example.workspace_id
+ # log_analytics_workspace_primary_shared_key = data.azurerm_log_analytics_workspace.example.primary_shared_key
 
   # Adding additional TAG's to your Azure resources
   tags = {
