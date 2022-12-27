@@ -1,5 +1,5 @@
 locals {
- vars = yamldecode(file(("root.yaml"))
+ vars = yamldecode(file("root.yaml"))
 }
 
 # Generate Azure providers
