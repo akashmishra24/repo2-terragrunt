@@ -1,4 +1,4 @@
-TF_VAR_subscription_id: "5d798471-bf04-46ec-8de0-8e42a4c1da3e"
-TF_VAR_resource_group_name: "Terraform-State-File"
-TF_VAR_storage_account_name: "mytfstatefile"
+TF_VAR_subscription_id: "7b5c7d11-8bc3-4105-9c6f-41222b38b95f"
+TF_VAR_resource_group_name: "rg-iac-cox-poc-01"
+TF_VAR_storage_account_name: "tfstatedemo1"
 TF_VAR_container_name: "tfstate"
