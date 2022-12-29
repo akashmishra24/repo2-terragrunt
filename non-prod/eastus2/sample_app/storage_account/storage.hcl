@@ -8,7 +8,7 @@ terraform {
 }
 
 inputs = {
-  resource_group_name = "tf-func-acct-testing"
+  resource_group_name = "rg-iac-cox-poc-01"
 
 storage_accounts = {
   atstftststorageacct = {
@@ -28,7 +28,7 @@ storage_accounts = {
 }
 
 tags = {
-  "date" = "12/27/2022"
+  "date" = "12/29/2022"
 }
 
 containers = {
