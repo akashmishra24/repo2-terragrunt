@@ -9,16 +9,16 @@ terraform {
 
 
 inputs = {
-  resource_group_name  = "Spoke-RG"
+  resource_group_name  = "rg-iac-cox-poc-01"
   location             = "East US 2"
-  virtual_network_name = "vnet"
-  subnet_name          = "default"
+  virtual_network_name = "rg-iac-cox-poc-01-vnet"
+  subnet_name          = "gitrunner-subnet"
   virtual_machine_name = "vm-linux"
-  key_vault_name       = "kv-test-estm"
-  key_vault_rg_name    = "Hub-RG"
+  key_vault_name       = "kv-eus-poc-iac-01"
+  key_vault_rg_name    = "rg-iac-cox-poc-01"
   key_vault_key_name   = "cmk1"
-  storage_account_name = "fghdjdtyj"
-  storage_rg           = "Hub-RG"
+  storage_account_name = "tfstatedemo1"
+  storage_rg           = "rg-iac-cox-poc-01"
 
   # This module support multiple Pre-Defined Linux and Windows Distributions.
   # Check the README.md file for more pre-defined images for Ubuntu, Centos, RedHat.
