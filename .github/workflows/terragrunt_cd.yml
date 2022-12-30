@@ -14,10 +14,10 @@ permissions:
 
 jobs:
   Terragrunt:
-    defaults:
-      run:
-        shell: bash
-        working-directory: "./non-prod"
+#     defaults:
+#       run:
+#         shell: bash
+#         working-directory: "./non-prod"
         
     name: 'Terragrunt'
     runs-on: self-hosted
@@ -28,7 +28,11 @@ jobs:
 #       ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
-
+    defaults:
+      run:
+        shell: bash
+        working-directory: "./non-prod"
+        
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
@@ -52,7 +56,7 @@ jobs:
         # Set this value to true to enable support for accessing tenants without subscriptions
     #    allow-no-subscriptions: # optional
         # Provide audience field for access-token. Default value is api://AzureADTokenExchange
-        audience: api://AzureADTokenExchange
+        audience: "api://AzureADTokenExchange"
 
     # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terragrunt Init
