@@ -17,6 +17,7 @@ generate "providers" {
     }
     provider "azurerm" {
         features {}
+        oidc = true
         subscription_id = "${local.vars.TF_VAR_subscription_id}"
     }
 EOF
