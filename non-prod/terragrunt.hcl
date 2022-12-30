@@ -21,6 +21,7 @@ generate "providers" {
 #         use_azuread_auth = true
         subscription_id = "${local.vars.TF_VAR_subscription_id}"
     }
+   provider "azuread" {}
 EOF
 }
 
@@ -34,8 +35,8 @@ remote_state {
         container_name = "${local.vars.TF_VAR_container_name}"
         use_oidc         = true
         use_azuread_auth = true
-        tenant_id = "72f988bf-86f1-41af-91ab-2d7cd011db47"
-        client_id = "a7f86a9f-b804-4844-8980-652cd145b25b"
+#         tenant_id = "72f988bf-86f1-41af-91ab-2d7cd011db47"
+#         client_id = "a7f86a9f-b804-4844-8980-652cd145b25b"
     }
     generate = {
         path      = "backend.tf"
