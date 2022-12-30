@@ -14,6 +14,11 @@ permissions:
 
 jobs:
   Terragrunt:
+    defaults:
+      run:
+        shell: bash
+        working-directory: "./non-prod"
+        
     name: 'Terragrunt'
     runs-on: self-hosted
     env:
@@ -23,10 +28,6 @@ jobs:
       ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
-    defaults:
-      run:
-        shell: bash
-        working-directory: "./non-prod"
 
     steps:
     # Checkout the repository to the GitHub Actions runner
