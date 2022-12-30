@@ -3,7 +3,6 @@ plugin "terraform" {
   preset  = "recommended"
   required_version = "1.3.5"
 }
-}
 
 plugin "azurerm" {
     enabled = true
