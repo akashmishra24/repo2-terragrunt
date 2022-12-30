@@ -78,11 +78,11 @@ jobs:
 
     # Generates an execution plan for Terragrunt
     - name: Terragrunt Plan
-      env:
-        ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
-   #  ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
+#       env:
+#         ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
+#    #  ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
+#         ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+#         ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
       run: terragrunt run-all plan --terragrunt-non-interactive
 
       # On push to main, build or change infrastructure according to Terragrunt configuration files.
