@@ -3,9 +3,9 @@ plugin "terraform" {
   preset  = "recommended"
 }
 
-terraform {
-  required_version = "1.3.5"
-}
+# terraform {
+#   required_version = "1.3.5"
+# }
 
 plugin "azurerm" {
     enabled = true
