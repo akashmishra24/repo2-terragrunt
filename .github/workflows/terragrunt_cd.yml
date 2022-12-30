@@ -13,19 +13,9 @@ permissions:
   contents: read
 
 jobs:
-  Terragrunt:
-#     defaults:
-#       run:
-#         shell: bash
-#         working-directory: "./non-prod"
-        
+  Terragrunt:     
     name: 'Terragrunt'
     runs-on: self-hosted
-#     env:
-#       ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
-#    #  ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
-#       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-#       ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -45,26 +35,6 @@ jobs:
         inlineScript: |
           az login --identity --username ${{ secrets.AZURE_AD_CLIENT_ID }} --tenant ${{ secrets.AZURE_AD_TENANT_ID }}
           az account set --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      
-#     - name: Azure Login
-#       uses: Azure/login@v1
-#       with:
-#     # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
-#     #    creds: # optional
-#         # ClientId of the Azure Service principal created.
-#         client-id: ${{ secrets.AZURE_AD_CLIENT_ID }}
-#         # TenantId of the Azure Service principal created.
-#         tenant-id: ${{ secrets.AZURE_AD_TENANT_ID }}
-#         # Azure subscriptionId
-#         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-#         # Set this value to true to enable Azure PowerShell Login in addition to Az CLI login
-#      #   enable-AzPSSession: # optional
-#         # Name of the environment. Supported values are azurecloud, azurestack, azureusgovernment, azurechinacloud, azuregermancloud. Default being azurecloud
-#         environment: azurecloud
-#         # Set this value to true to enable support for accessing tenants without subscriptions
-#     #    allow-no-subscriptions: # optional
-#         # Provide audience field for access-token. Default value is api://AzureADTokenExchange
-#         audience: "api://AzureADTokenExchange"
 
     # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terragrunt Init
@@ -78,19 +48,14 @@ jobs:
     - name: Terragrunt Validate
       run: terragrunt validate
       
-    - name: Tflint  init
-      run: tflint --init
+#     - name: Tflint  init
+#       run: tflint --init
       
-    - name: Run Tflint
-      run: tflint -f compact
+#     - name: Run Tflint
+#       run: tflint -f compact
 
     # Generates an execution plan for Terragrunt
     - name: Terragrunt Plan
-#       env:
-#         ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
-#    #  ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
-#         ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-#         ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
       run: terragrunt run-all plan --terragrunt-non-interactive
 
       # On push to main, build or change infrastructure according to Terragrunt configuration files.
