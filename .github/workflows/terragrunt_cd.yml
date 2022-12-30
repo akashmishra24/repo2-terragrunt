@@ -20,7 +20,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: "./non-prod/eastus2/sample_app/storage_account/"
+        working-directory: "./non-prod"
 
     steps:
     # Checkout the repository to the GitHub Actions runner
