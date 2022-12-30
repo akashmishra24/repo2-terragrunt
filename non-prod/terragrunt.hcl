@@ -17,8 +17,8 @@ generate "providers" {
     }
     provider "azurerm" {
         features {}
-        use_oidc         = true
-        use_azuread_auth = true
+#         use_oidc         = true
+#         use_azuread_auth = true
         subscription_id = "${local.vars.TF_VAR_subscription_id}"
     }
 EOF
@@ -32,8 +32,9 @@ remote_state {
         resource_group_name = "${local.vars.TF_VAR_resource_group_name}"
         storage_account_name = "${local.vars.TF_VAR_storage_account_name}"
         container_name = "${local.vars.TF_VAR_container_name}"
-#         use_oidc         = true
-#         use_azuread_auth = true
+        use_oidc         = true
+        use_azuread_auth = true
+        tenant_id = "72f988bf-86f1-41af-91ab-2d7cd011db47"
     }
     generate = {
         path      = "backend.tf"
