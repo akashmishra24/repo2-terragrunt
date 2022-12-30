@@ -9,7 +9,6 @@ generate "providers" {
   contents  = <<EOF
     terraform {
       required_providers {
-       required_version = "1.3.6"
         azurerm = {
           source = "hashicorp/azurerm"
           version = "3.36.0"
@@ -19,11 +18,10 @@ generate "providers" {
           version = "2.31.0"
         }
       }
+     required_version = "1.3.5"
     }
     provider "azurerm" {
         features {}
-#         use_oidc         = true
-#         use_azuread_auth = true
         subscription_id = "${local.vars.TF_VAR_subscription_id}"
     }
    provider "azuread" {}
