@@ -13,6 +13,36 @@ on:
 #   contents: read
 
 jobs:
+  Tflint:
+    name: 'Tflint check'
+    runs-on: ubuntu-latest
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
+    defaults:
+      run:
+        shell: bash
+        working-directory: "./non-prod/eastus2/sample_app/vm/"
+    
+    steps:
+        # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v3.0.0
+        with:
+          tflint_version: latest
+    # GitHub token - used when getting the latest version of tflint
+          github_token: ${{ github.token }}
+      
+      - name: Tflint  init
+        run: tflint --init
+      
+      - name: Run Tflint
+        run: tflint -f compact
+      
   Terragrunt:     
     name: 'Terragrunt'
     runs-on: ubuntu-latest # self-hosted
@@ -39,12 +69,12 @@ jobs:
         # Terragrunt version to install
         terragrunt_version: 0.40.0
         
-    - name: Setup TFLint
-      uses: terraform-linters/setup-tflint@v3.0.0
-      with:
-        tflint_version: latest
-    # GitHub token - used when getting the latest version of tflint
-        github_token: ${{ github.token }}
+#     - name: Setup TFLint
+#       uses: terraform-linters/setup-tflint@v3.0.0
+#       with:
+#         tflint_version: latest
+#     # GitHub token - used when getting the latest version of tflint
+#         github_token: ${{ github.token }}
 
     # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terragrunt Init
@@ -53,15 +83,15 @@ jobs:
     - name: Terragrunt Validate
       run: terragrunt validate
       
-    - name: Tflint  init
-      run: |
-        cd /eastus2/sample_app/vm/
-        tflint --init
+#     - name: Tflint  init
+#       run: |
+#         cd /eastus2/sample_app/vm/
+#         tflint --init
       
-    - name: Run Tflint
-      run: |
-        cd /eastus2/sample_app/vm/
-        tflint -f compact
+#     - name: Run Tflint
+#       run: |
+#         cd /eastus2/sample_app/vm/
+#         tflint -f compact
 
     # Generates an execution plan for Terragrunt
     - name: Terragrunt Plan
