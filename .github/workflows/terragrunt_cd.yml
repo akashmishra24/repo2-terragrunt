@@ -35,7 +35,7 @@ jobs:
         with:
           tflint_version: latest
     # GitHub token - used when getting the latest version of tflint
-          github_token: ${{ github.token }}
+          github_token: ${{ secrets.API_TOKEN }}
       
       - name: Tflint  init
         run: tflint --init
