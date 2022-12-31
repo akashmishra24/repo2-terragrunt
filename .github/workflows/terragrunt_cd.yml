@@ -54,10 +54,14 @@ jobs:
       run: terragrunt validate
       
     - name: Tflint  init
-      run: tflint --init
+      run: |
+        cd /eastus2/sample_app/vm/
+        tflint --init
       
     - name: Run Tflint
-      run: tflint -f compact
+      run: |
+        cd /eastus2/sample_app/vm/
+        tflint -f compact
 
     # Generates an execution plan for Terragrunt
     - name: Terragrunt Plan
