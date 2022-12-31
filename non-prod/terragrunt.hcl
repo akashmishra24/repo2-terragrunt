@@ -19,7 +19,7 @@ generate "providers" {
         }
       }
 #      required_version = "1.3.5"
-     required_version = ">= 1.1.0"
+#      required_version = ">= 1.1.0"
     }
     provider "azurerm" {
         features {}
@@ -37,10 +37,10 @@ remote_state {
         resource_group_name = "${local.vars.TF_VAR_resource_group_name}"
         storage_account_name = "${local.vars.TF_VAR_storage_account_name}"
         container_name = "${local.vars.TF_VAR_container_name}"
-        use_oidc         = true
-        use_azuread_auth = true
-        tenant_id = "${local.vars.TF_VAR_tenant_id}"
-        client_id = "${local.vars.TF_VAR_client_id}"
+#         use_oidc         = true
+#         use_azuread_auth = true
+#         tenant_id = "${local.vars.TF_VAR_tenant_id}"
+#         client_id = "${local.vars.TF_VAR_client_id}"
     }
     generate = {
         path      = "backend.tf"
