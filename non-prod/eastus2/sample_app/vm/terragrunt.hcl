@@ -30,7 +30,7 @@ inputs = {
   os_flavor = "linux"
   # windows_distribution_name = "windows2019dc"
   linux_distribution_name = "ubuntu2004"
-  virtual_machine_size    = "Standard_D2as_v4"
+  virtual_machine_size    = "Standard_D2as_v4555"
   generate_admin_ssh_key  = true
   instances_count         = 1
 
