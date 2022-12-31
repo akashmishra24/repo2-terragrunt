@@ -34,12 +34,17 @@ jobs:
       uses: actions/checkout@v2
       
     - name: Terragrunt installer
-  # You may pin to the exact commit or the version.
-  # uses: autero1/action-terragrunt@d4de6a145d2e35e57ce5a5b856238ed3ada062b9
       uses: autero1/action-terragrunt@v1.2.0
       with:
         # Terragrunt version to install
         terragrunt_version: 0.40.0
+        
+    - name: Setup TFLint
+      uses: terraform-linters/setup-tflint@v3.0.0
+      with:
+        tflint_version: latest
+    # GitHub token - used when getting the latest version of tflint
+        github_token: ${{ github.token }}
 
     # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terragrunt Init
