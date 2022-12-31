@@ -15,7 +15,7 @@ on:
 jobs:
   Terragrunt:     
     name: 'Terragrunt'
-    runs-on: self-hosted
+    runs-on: ubuntu-latest # self-hosted
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
@@ -32,6 +32,14 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v2
+      
+    - name: Terragrunt installer
+  # You may pin to the exact commit or the version.
+  # uses: autero1/action-terragrunt@d4de6a145d2e35e57ce5a5b856238ed3ada062b9
+      uses: autero1/action-terragrunt@v1.2.0
+      with:
+        # Terragrunt version to install
+        terragrunt_version: 0.40.0
 
     # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terragrunt Init
