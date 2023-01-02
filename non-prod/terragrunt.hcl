@@ -1,7 +1,6 @@
 locals {
  vars = yamldecode(file("root.yaml"))
 }
-
 # Generate Azure providers
 generate "providers" {
   path      = "providers.tf"
