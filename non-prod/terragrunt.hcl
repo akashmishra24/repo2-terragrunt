@@ -38,6 +38,7 @@ remote_state {
         container_name = "${local.vars.TF_VAR_container_name}"
         use_oidc         = true
         use_azuread_auth = true
+        use_msi = true
         tenant_id = "${local.vars.TF_VAR_tenant_id}"
         client_id = "${local.vars.TF_VAR_client_id}"
     }
