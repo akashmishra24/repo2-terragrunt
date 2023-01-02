@@ -8,19 +8,19 @@ on:
     branches:
     - main
   
-# permissions:
-#   id-token: write
-#   contents: read
+permissions:
+  id-token: write
+  contents: read
 
 jobs:   
   Terragrunt:     
     name: 'Terragrunt'
     runs-on: ubuntu-latest # self-hosted
-    env:
-      ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
+#     env:
+#       ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
+#       ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
+#       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+#       ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -32,6 +32,14 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v2
+      
+  # Log into Azure with OIDC integration
+    - name: 'Az CLI login'
+      uses: azure/login@v1
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       
     - name: Terragrunt installer
       uses: autero1/action-terragrunt@v1.2.0
@@ -54,14 +62,10 @@ jobs:
       run: terragrunt validate
       
     - name: Tflint  init
-      run: |
-        cd /eastus2/sample_app/vm/
-        tflint --init
+      run: tflint --init
       
     - name: Run Tflint
-      run: |
-        cd /eastus2/sample_app/vm/
-        tflint -f compact
+      run: tflint -f compact
 
     # Generates an execution plan for Terragrunt
     - name: Terragrunt Plan
