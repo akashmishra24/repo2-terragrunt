@@ -1,7 +1,7 @@
 locals {
  vars = yamldecode(file("root.yaml"))
 }
-# Generate Azure providers
+
 generate "providers" {
   path      = "providers.tf"
   if_exists = "overwrite_terragrunt"
