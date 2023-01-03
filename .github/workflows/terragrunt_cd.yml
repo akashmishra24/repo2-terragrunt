@@ -8,13 +8,17 @@ on:
     branches:
     - main
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:   
   Terragrunt:     
     name: 'Terragrunt'
     runs-on: self-hosted
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
+#       ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
 
@@ -61,12 +65,12 @@ jobs:
 
       # On push to main, build or change infrastructure according to Terragrunt configuration files.
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terragrunt Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
-    - name: Terragrunt Apply
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terragrunt run-all apply --terragrunt-non-interactive
+#     - name: Terragrunt Apply
+#       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+#       run: terragrunt run-all apply --terragrunt-non-interactive
       
-    - name: Terragrunt Output
-      run: terragrunt output-all
+#     - name: Terragrunt Output
+#       run: terragrunt output-all
       
-    - name: Terragrunt destroy
-      run: terragrunt run-all destroy --terragrunt-non-interactive
+#     - name: Terragrunt destroy
+#       run: terragrunt run-all destroy --terragrunt-non-interactive
