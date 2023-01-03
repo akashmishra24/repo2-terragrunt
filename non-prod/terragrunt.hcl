@@ -35,7 +35,12 @@ remote_state {
         resource_group_name = "${local.vars.TF_VAR_resource_group_name}"
         storage_account_name = "${local.vars.TF_VAR_storage_account_name}"
         container_name = "${local.vars.TF_VAR_container_name}"
-    }
+        use_oidc = true
+        use_azuread_auth = true
+        client_id = "${local.vars.TF_VAR_client_id}"
+        tenant_id = "${local.vars.TF_VAR_tenant_id}"
+        subscription_id = "${local.vars.TF_VAR_subscription_id}"
+        }
     generate = {
         path      = "backend.tf"
         if_exists = "overwrite_terragrunt"
