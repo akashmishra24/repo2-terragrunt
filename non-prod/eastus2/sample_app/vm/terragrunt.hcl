@@ -7,6 +7,9 @@ terraform {
     source = "git::https://github.com/akashmishra24/repo1-tfmodules.git//azurerm_vm"
 }
 
+dependency "storage" {
+config_path = "../storage_account/"
+}
 
 inputs = {
   resource_group_name  = "rg-iac-cox-poc-01"
@@ -17,8 +20,8 @@ inputs = {
   key_vault_name       = "kv-eus-poc-iac-01"
   key_vault_rg_name    = "rg-iac-cox-poc-01"
   key_vault_key_name   = "cmk"
-  storage_account_name = "tfstatedemo1"
-  storage_rg           = "rg-iac-cox-poc-01"
+  storage_account_name = dependency.storage.output.sa_names.name #"tfstatedemo1"
+  storage_rg           = dependency.storage.output.resource_group.name # "rg-iac-cox-poc-01"
 
   # This module support multiple Pre-Defined Linux and Windows Distributions.
   # Check the README.md file for more pre-defined images for Ubuntu, Centos, RedHat.
@@ -30,7 +33,7 @@ inputs = {
   os_flavor = "linux"
   # windows_distribution_name = "windows2019dc"
   linux_distribution_name = "ubuntu2004"
-  virtual_machine_size    = "Standard_D2as_v4555"
+  virtual_machine_size    = "Standard_D2as_v4"
   generate_admin_ssh_key  = true
   instances_count         = 1
 
