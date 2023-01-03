@@ -8,19 +8,19 @@ on:
     branches:
     - main
 
-permissions:
-  id-token: write
-  contents: read
+# permissions:
+#   id-token: write
+#   contents: read
 
 jobs:   
   Terragrunt:     
     name: 'Terragrunt'
     runs-on: self-hosted
-#     env:
-#       ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
-#       ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
-#       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-#       ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
 
     defaults:
       run:
@@ -31,17 +31,17 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       
-    - name: Azure Login using OIDC
-      uses: ./.github/workflows/composite/azure-oidc-login
-      with:
-        # ClientId of the Azure Service principal created.
-        client-id: ${{ secrets.AZURE_AD_CLIENT_ID }}
-        # TenantId of the Azure Service principal created.
-        tenant-id: ${{ secrets.AZURE_AD_TENANT_ID }}
-        # Azure subscriptionId
-        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        # Provide audience field for access-token. Default value is api://AzureADTokenExchange
-   #     audience: api://AzureADTokenExchange 
+#     - name: Azure Login using OIDC
+#       uses: ./.github/workflows/composite/azure-oidc-login
+#       with:
+#         # ClientId of the Azure Service principal created.
+#         client-id: ${{ secrets.AZURE_AD_CLIENT_ID }}
+#         # TenantId of the Azure Service principal created.
+#         tenant-id: ${{ secrets.AZURE_AD_TENANT_ID }}
+#         # Azure subscriptionId
+#         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+#         # Provide audience field for access-token. Default value is api://AzureADTokenExchange
+#         audience: api://AzureADTokenExchange 
 
     # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terragrunt Init
@@ -59,10 +59,6 @@ jobs:
     # Generates an execution plan for Terragrunt
     - name: Terragrunt Plan
       run: terragrunt run-all plan # --terragrunt-non-interactive
-#       env:
-#         ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
-#         ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-#         ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
 
       # On push to main, build or change infrastructure according to Terragrunt configuration files.
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terragrunt Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
