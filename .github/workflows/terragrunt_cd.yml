@@ -32,7 +32,7 @@ jobs:
       uses: actions/checkout@v2
       
     - name: Azure Login using OIDC
-      uses: ./.github/workflows/composite/azure-oidc-login
+      uses: Azure/login@v1
       with:
         # ClientId of the Azure Service principal created.
         client-id: ${{ secrets.AZURE_AD_CLIENT_ID }}
