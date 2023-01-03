@@ -6,16 +6,6 @@ locals {
   network_state_file = "vnet.tfstate"
 }
 
-data "terraform_remote_state" "networking" {
-  backend = "azurerm"
-  config {
-    resource_group_name  = "rg-iac-cox-poc-01"
-    storage_account_name = "tfstatedemo1"
-    container_name       = "tfstate"
-    key                  = "vnet.tfstate"
-  }
-}
-
 terraform {
     source = "git::https://github.com/akashmishra24/repo1-tfmodules.git//azurerm_vm"
 }
@@ -23,8 +13,8 @@ terraform {
 inputs = {
   resource_group_name  = "rg-iac-cox-poc-01"
   location             = "East US 2"
-  virtual_network_name = data.terraform_remote_state.networking.output.virtual_network_name  # "rg-iac-cox-poc-01-vnet"
-  subnet_name          = data.terraform_remote_state.networking.output.subnet_ids # "gitrunner-subnet"
+  virtual_network_name = "rg-iac-cox-poc-01-vnet"
+  subnet_name          = "gitrunner-subnet"
   virtual_machine_name = "vm-linux"
   key_vault_name       = "kv-eus-poc-iac-01"
   key_vault_rg_name    = "rg-iac-cox-poc-01"
