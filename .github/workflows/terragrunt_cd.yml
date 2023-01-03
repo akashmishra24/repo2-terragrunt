@@ -75,11 +75,11 @@ jobs:
     - name: Terragrunt Validate
       run: terragrunt validate
       
-#     - name: Tflint  init
-#       run: tflint --init
+    - name: Tflint  init
+      run: tflint --init
       
-#     - name: Run Tflint
-#       run: tflint -f compact
+    - name: Run Tflint
+      run: tflint -f compact
 
     # Generates an execution plan for Terragrunt
     - name: Terragrunt Plan
