@@ -7,15 +7,11 @@ on:
   pull_request:
     branches:
     - main
-  
-# permissions:
-#   id-token: write
-#   contents: read
 
 jobs:   
   Terragrunt:     
     name: 'Terragrunt'
-    runs-on: ubuntu-latest # self-hosted
+    runs-on: self-hosted
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
@@ -33,40 +29,18 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       
-  # Log into Azure with OIDC integration
-#     - name: 'Az CLI login'
-#       uses: azure/login@v1
+#     - name: Terragrunt installer
+#       uses: autero1/action-terragrunt@v1.2.0
 #       with:
-#         client-id: ${{ secrets.AZURE_AD_CLIENT_ID }}
-#         tenant-id: ${{ secrets.AZURE_AD_TENANT_ID }}
-#         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+#         # Terragrunt version to install
+#         terragrunt_version: 0.40.0
         
-#     - name: Azure Login
-#       uses: Azure/login@v1.4.6
+#     - name: Setup TFLint
+#       uses: terraform-linters/setup-tflint@v3.0.0
 #       with:
-#         # ClientId of the Azure Service principal created.
-#         client-id: ${{ secrets.AZURE_AD_CLIENT_ID }}
-#         # TenantId of the Azure Service principal created.
-#         tenant-id: ${{ secrets.AZURE_AD_TENANT_ID }}
-#         # Azure subscriptionId
-#         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-#         # Name of the environment. Supported values are azurecloud, azurestack, azureusgovernment, azurechinacloud, azuregermancloud. Default being azurecloud
-#         environment: azurecloud
-#         # Provide audience field for access-token. Default value is api://AzureADTokenExchange
-#         audience: api://AzureADTokenExchange
-      
-    - name: Terragrunt installer
-      uses: autero1/action-terragrunt@v1.2.0
-      with:
-        # Terragrunt version to install
-        terragrunt_version: 0.40.0
-        
-    - name: Setup TFLint
-      uses: terraform-linters/setup-tflint@v3.0.0
-      with:
-        tflint_version: latest
-    # GitHub token - used when getting the latest version of tflint
-        github_token: ${{ secrets.API_TOKEN }}
+#         tflint_version: latest
+#     # GitHub token - used when getting the latest version of tflint
+#         github_token: ${{ secrets.API_TOKEN }}
 
     # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terragrunt Init
@@ -87,12 +61,12 @@ jobs:
 
       # On push to main, build or change infrastructure according to Terragrunt configuration files.
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terragrunt Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
-   # - name: Terragrunt Apply
-   #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-   #   run: terragrunt run-all apply --terragrunt-non-interactive
+    - name: Terragrunt Apply
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      run: terragrunt run-all apply --terragrunt-non-interactive
       
-   # - name: Terragrunt Output
-   #   run: terragrunt output-all
+    - name: Terragrunt Output
+      run: terragrunt output-all
       
-   # - name: Terragrunt destroy
-   #   run: terragrunt run-all destroy --terragrunt-non-interactive
+    - name: Terragrunt destroy
+      run: terragrunt run-all destroy --terragrunt-non-interactive
