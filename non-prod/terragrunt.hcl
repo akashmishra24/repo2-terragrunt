@@ -25,6 +25,7 @@ generate "providers" {
         client_id = "${local.vars.TF_VAR_client_id}"
         tenant_id = "${local.vars.TF_VAR_tenant_id}"
         use_msi = true
+        use_oidc = true
     }
    provider "azuread" {}
 EOF
