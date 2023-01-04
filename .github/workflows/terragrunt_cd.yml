@@ -15,14 +15,13 @@ permissions:
 jobs:   
   Terragrunt:     
     name: 'Terragrunt'
-    runs-on: ubuntu-latest # self-hosted
-    env:
-      ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
- #     ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
-      ARM_USE_MSI: true
-      ARM_USE_OIDC: true
+    runs-on: self-hosted
+#     env:
+#       ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
+#       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+#       ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
+#       ARM_USE_MSI: true
+#       ARM_USE_OIDC: true
 
     defaults:
       run:
@@ -33,11 +32,11 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     
-    - name: Terragrunt installer
-      uses: autero1/action-terragrunt@v1.2.0
-      with:
-    # Terragrunt version to install
-        terragrunt_version: v0.42.5
+#     - name: Terragrunt installer
+#       uses: autero1/action-terragrunt@v1.2.0
+#       with:
+#     # Terragrunt version to install
+#         terragrunt_version: v0.42.5
       
     - name: Azure Login using OIDC
       uses: Azure/login@v1
@@ -48,8 +47,6 @@ jobs:
         tenant-id: ${{ secrets.AZURE_AD_TENANT_ID }}
         # Azure subscriptionId
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        # Provide audience field for access-token. Default value is api://AzureADTokenExchange
-#       audience: api://AzureADTokenExchange 
 
     # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terragrunt Init
@@ -64,11 +61,11 @@ jobs:
     - name: Terragrunt Validate
       run: terragrunt validate
       
-#     - name: Tflint  init
-#       run: tflint --init
+    - name: Tflint  init
+      run: tflint --init
       
-#     - name: Run Tflint
-#       run: tflint -f compact
+    - name: Run Tflint
+      run: tflint -f compact
 
     # Generates an execution plan for Terragrunt
     - name: Terragrunt Plan
