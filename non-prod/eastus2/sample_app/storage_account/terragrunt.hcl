@@ -12,7 +12,7 @@ inputs = {
 
 storage_accounts = {
   atstftststorageacct = {
-    name         = "atstftststorageacct",
+    name         = "atstftststorageacctggg",
     sku          = "Standard_LRS",
     account_kind = "StorageV2",
     access_tier  = "Hot",
