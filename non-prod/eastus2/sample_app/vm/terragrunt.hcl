@@ -18,7 +18,7 @@ inputs = {
   virtual_machine_name = "vm-linux"
   key_vault_name       = "kv-eus-poc-iac-01"
   key_vault_rg_name    = "rg-iac-cox-poc-01"
-  key_vault_key_name   = "cmk"
+  key_vault_key_name   = "cmk-new"
   storage_account_name = "tfstatedemo1"
   storage_rg           = "rg-iac-cox-poc-01"
 
