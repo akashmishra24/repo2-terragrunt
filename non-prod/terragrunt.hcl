@@ -9,7 +9,7 @@ generate "providers" {
       required_providers {
         azurerm = {
           source = "hashicorp/azurerm"
-          version = "3.36.0"
+          version = "=3.7.0"
         }
         azuread = {
           source = "hashicorp/azuread"
@@ -22,6 +22,9 @@ generate "providers" {
     provider "azurerm" {
         features {}
         subscription_id = "${local.vars.TF_VAR_subscription_id}"
+        client_id = "${local.vars.TF_VAR_client_id}"
+        tenant_id = "${local.vars.TF_VAR_tenant_id}"
+        use_msi = true
     }
    provider "azuread" {}
 EOF
@@ -35,11 +38,11 @@ remote_state {
         resource_group_name = "${local.vars.TF_VAR_resource_group_name}"
         storage_account_name = "${local.vars.TF_VAR_storage_account_name}"
         container_name = "${local.vars.TF_VAR_container_name}"
-        use_oidc = true
-        use_azuread_auth = true
-        client_id = "${local.vars.TF_VAR_client_id}"
-        tenant_id = "${local.vars.TF_VAR_tenant_id}"
-        subscription_id = "${local.vars.TF_VAR_subscription_id}"
+#         use_oidc = true
+#         use_azuread_auth = true
+#         client_id = "${local.vars.TF_VAR_client_id}"
+#         tenant_id = "${local.vars.TF_VAR_tenant_id}"
+#         subscription_id = "${local.vars.TF_VAR_subscription_id}"
         }
     generate = {
         path      = "backend.tf"
