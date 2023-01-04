@@ -1,6 +1,7 @@
 locals {
  vars = yamldecode(file("root.yaml"))
 }
+
 generate "providers" {
   path      = "providers.tf"
   if_exists = "overwrite_terragrunt"
