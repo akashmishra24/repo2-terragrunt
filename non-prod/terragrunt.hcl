@@ -23,7 +23,8 @@ generate "providers" {
         features {
         key_vault {
         purge_soft_delete_on_destroy = false
-        }}
+        }
+        }
         subscription_id = "${local.vars.TF_VAR_subscription_id}"
         client_id = "${local.vars.TF_VAR_client_id}"
         tenant_id = "${local.vars.TF_VAR_tenant_id}"
