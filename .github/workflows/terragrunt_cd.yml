@@ -9,12 +9,14 @@ on:
     - main
 
 permissions:
-  id-token: write
-  contents: read
+    id-token: write
+    issues: write
+    pull-requests: write
+    contents: read
 
 jobs:   
-  Terragrunt:     
-    name: 'Terragrunt'
+  Terragrunt_Plan:     
+    name: 'Terragrunt Plan'
     runs-on: self-hosted
 
     defaults:
@@ -25,6 +27,12 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+      
+    - name: Get Pull Request Number
+      id: pr
+      run: echo "::set-output name=pull_request_number::$(gh pr view --json number -q .number || echo "")"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
     - name: Azure Login using OIDC
       uses: Azure/login@v1
@@ -39,17 +47,10 @@ jobs:
         ARM_USE_MSI: true
         ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
-        ARM_USE_OIDC: true
       run: terragrunt init --terragrunt-non-interactive
       
     - name: Terragrunt Validate
       run: terragrunt validate
-      
-    - name: Tflint  init
-      run: tflint --init
-      
-    - name: Run Tflint
-      run: tflint -f compact
 
     - name: Terragrunt Plan
       env:
@@ -57,27 +58,12 @@ jobs:
         ARM_USE_MSI: true
         ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
-        ARM_USE_OIDC: true
-      run: terragrunt run-all plan # --terragrunt-non-interactive
+      run: terragrunt run-all show -json plan.out > ${{ steps.pr.outputs.pull_request_number }}_plan.json
+      
+    - uses: actions/upload-artifact@v3
+      with:
+        name: Terragrunt Plan output file
+        path: ${{ github.workspace }}
+        if-no-files-found: error
 
-    - name: Terragrunt Apply
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      env:
-        ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
-        ARM_USE_MSI: true
-        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
-        ARM_USE_OIDC: true 
-      run: terragrunt run-all apply --terragrunt-non-interactive
-      
-    - name: Terragrunt Output
-      run: terragrunt output-all
-      
-#     - name: Terragrunt destroy
-#       env:
-#         ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
-#         ARM_USE_MSI: true
-#         ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-#         ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
-#         ARM_USE_OIDC: true
-#       run: terragrunt run-all destroy --terragrunt-non-interactive
+
